@@ -5,24 +5,31 @@ import PackageDescription
 
 let package = Package(
     name: "KyuSwiftPackages",
+    platforms: [
+        .iOS(.v13),
+    ],
     products: [
-        // Products define the executables and libraries a package produces, and make them visible to other packages.
         .library(
-            name: "KyuSwiftPackages",
-            targets: ["KyuSwiftPackages"]),
+            name: "KyuGenericExtensions",
+            targets: ["KyuGenericExtensions"]),
+        .library(
+            name: "KyuNetworkExtensions",
+            targets: ["KyuNetworkExtensions"]),
     ],
     dependencies: [
-        // Dependencies declare other packages that this package depends on.
-        // .package(url: /* package url */, from: "1.0.0"),
+        .package(url: "https://github.com/Moya/Moya.git", .upToNextMajor(from: "14.0.0")),
+        .package(url: "https://github.com/tristanhimmelman/ObjectMapper.git", .upToNextMajor(from: "4.1.0")),
     ],
     targets: [
-        // Targets are the basic building blocks of a package. A target can define a module or a test suite.
-        // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(
-            name: "KyuSwiftPackages",
-            dependencies: []),
+            name: "KyuGenericExtensions",
+            path: "Sources/KyuGenericExtensions"),
+        .target(
+            name: "KyuNetworkExtensions",
+            dependencies: ["KyuGenericExtensions", "Moya", "ObjectMapper"],
+            path: "Sources/KyuNetworkExtensions"),
         .testTarget(
             name: "KyuSwiftPackagesTests",
-            dependencies: ["KyuSwiftPackages"]),
+            dependencies: ["KyuGenericExtensions", "KyuNetworkExtensions"]),
     ]
 )

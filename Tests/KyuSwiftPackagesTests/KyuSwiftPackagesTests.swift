@@ -1,5 +1,6 @@
 import XCTest
-@testable import KyuSwiftPackages
+@testable import KyuGenericExtensions
+@testable import KyuNetworkExtensions
 
 final class KyuSwiftPackagesTests: XCTestCase {
     func testExample() {
